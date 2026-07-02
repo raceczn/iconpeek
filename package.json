@@ -1,6 +1,6 @@
 {
   "name": "iconpeek",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Live Expo app icon and splash preview with Android adaptive-icon mask checks - no native build required.",
   "main": "server.js",
   "bin": {
