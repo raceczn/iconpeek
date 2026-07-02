@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "ImageWidth App",
+    "slug": "imagewidth",
+    "splash": {
+      "imageWidth": 160
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Hex8 App",
+    "slug": "hex8",
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F5A623FF"
+      }
+    }
+  }
+}

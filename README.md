@@ -64,7 +64,7 @@ npx iconpeek --port 5000
 
 If the config file is missing or any asset path does not exist, `iconpeek` falls back to `assets/placeholder-icon.png` and shows a warning in the UI instead of crashing.
 
-For `app.config.js`, `iconpeek` loads the local config module directly. That matches normal Expo expectations, but it also means config code can run.
+For `app.config.js`, `iconpeek` loads the local config module directly. That matches normal Expo expectations, but it also means config code can run. `module.exports = {...}` and `module.exports = ({ config }) => ({...})` always work. `export default` (ES module syntax) works automatically on Node 20.19+ or 22.12+, since those versions added native `require(esm)` support — on older Node (this package's declared floor is 14), it fails with an explicit error telling you to upgrade Node, convert the file to CommonJS, or use `app.json`/`app.config.json` instead.
 
 ## `generate_icons.py` Usage
 
@@ -102,17 +102,29 @@ Flags:
 The generator creates:
 
 - Android legacy launcher icons per density
-- Android adaptive foreground and background layers plus `mipmap-anydpi-v26` XML files
+- Android adaptive foreground and background layers plus `mipmap-anydpi-v26` XML files. Foreground content is sized to the standard 72dp area on the 108dp canvas (matching Android Studio's Image Asset Studio default), not shrunk down to the 66dp safe-zone diameter — that diameter is the guaranteed-visible region, not a target canvas size for your artwork.
 - A 512x512 Play Store icon flattened onto white
-- A complete iOS `AppIcon.appiconset` with `Contents.json`
+- A complete iOS `AppIcon.appiconset` with `Contents.json`, including both `iphone` and `ipad` idiom entries at every shared point size (20/29/40pt), not just iPhone sizes
 
 The script warns when a source image is not square or is smaller than `1024x1024`.
+
+## Testing
+
+```bash
+npm test
+# or: bash tests/smoke-test.sh
+```
+
+This boots the real server against a set of fixture Expo projects (missing config, malformed JSON, `splash.imageWidth` set, 8-digit hex colors, a path-traversal attempt, an `app.config.js` using `export default`, and a fully-populated project) and checks actual HTTP responses — status codes, content types, warning text, and CLI argument validation.
+
+It also statically diffs every `document.getElementById(...)` call in the rendered page against every `id="..."` attribute actually present, so a client-side id typo fails the suite immediately instead of only breaking in a browser on a specific config shape. `generate_icons.py` output is checked structurally too: iOS idiom coverage, Android adaptive-icon foreground sizing, and the embedded placeholder asset all get inspected, not just "did it exit 0."
 
 ## Publishing To npm
 
 For contributors publishing a new release:
 
 ```bash
+npm test
 npm version patch
 npm publish
 ```
@@ -126,4 +138,3 @@ Ideas for future additions:
 - Bare React Native config path support outside Expo
 - Android 13 monochrome icon preview and export
 - watchOS and additional Apple platform icon size generation
-

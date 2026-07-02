@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Full App",
+    "slug": "full",
+    "icon": "./assets/icon.png",
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/foreground.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#FFFFFF",
+      "dark": {
+        "image": "./assets/splash-dark.png",
+        "backgroundColor": "#121212"
+      }
+    }
+  }
+}
