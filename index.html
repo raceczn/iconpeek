@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iconpeek</title>
+  <style id="main-styles"></style>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
+        <h1 class="brand-title">iconpeek</h1>
+        <p class="brand-copy">Your live real-time playground for Expo icons & splash screens ✨</p>
+      </div>
+    </div>
+    <div class="header-pill">Zero Dependencies</div>
+  </header>
+
+  <main class="page">
+
+
+    <section class="warning-banner" id="warningBanner"></section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="card-head">
+          <h3 class="card-title">Android Adaptive Icon Simulator</h3>
+          <div class="controls">
+            <div class="segment" id="shapeControl">
+              <button type="button" data-shape="squircle" class="active">Squircle</button>
+              <button type="button" data-shape="rounded">Rounded</button>
+              <button type="button" data-shape="circle">Circle</button>
+              <button type="button" data-shape="square">Square</button>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="safeZoneToggle">
+              Show safe zone
+            </label>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="adaptive-wrap">
+            <div class="adaptive-mask mask-squircle" id="adaptiveMask">
+              <div class="adaptive-layer adaptive-bg" id="adaptiveBg"></div>
+              <div class="adaptive-layer adaptive-fg" id="adaptiveFg"></div>
+              <div class="safe-zone" id="safeZone">
+                <!-- <span>66dp Safe Zone</span> -->
+              </div>
+            </div>
+            <div class="shape-caption" id="shapeCaption">Android 12+ default squircle mask</div>
+          </div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-pill"><strong>Layer Canvas</strong><span>108dp / 324px</span></div>
+          <div class="spec-pill"><strong>Visible Mask</strong><span>72dp / 216px</span></div>
+          <div class="spec-pill"><strong>Safe Zone</strong><span>66dp / 198px</span></div>
+          <div class="spec-pill"><strong>BG Color</strong><span id="bgColorValue">#FFFFFF</span></div>
+          <div class="spec-pill"><strong>Crop Margin</strong><span>18dp / 54px</span></div>
+          <div class="spec-pill"><strong>Preview Scale</strong><span>3x</span></div>
+        </div>
+
+        <div class="size-row" id="androidSizeRow"></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <h3 class="card-title">iOS Icon Preview</h3>
+          <span class="header-pill" style="padding: 0.35rem 0.65rem; font-size: 0.66rem; letter-spacing: 0.04em;">Flat Asset</span>
+        </div>
+        <div class="ios-preview">
+          <div class="ios-mask">
+            <img src="/assets/ios-icon" alt="iOS app icon">
+          </div>
+          <div class="hint">iOS app icons should be opaque; this preview approximates the system mask so you can judge edge composition quickly.</div>
+        </div>
+        <div class="size-row" id="iosSizeRow"></div>
+      </article>
+    </section>
+
+    <section class="context">
+      <article class="card">
+        <div class="card-head">
+          <h3 class="card-title">Android Launcher Context</h3>
+          <div class="hint">96x96 highlight ring in a mock launcher grid</div>
+        </div>
+        <div class="screen android-screen">
+          <div class="screen-grid">
+            <div class="app-chip">
+              <div class="placeholder" style="background: linear-gradient(135deg, #2563eb, #38bdf8);">MSG</div>
+              <div class="app-label">Messages</div>
+            </div>
+            <div class="app-chip">
+              <div class="launcher-mask ring mask-squircle" id="launcherMask" style="width: 96px; height: 96px;">
+                <div class="launcher-bg" id="launcherBg"></div>
+                <div class="launcher-fg" id="launcherFg"></div>
+              </div>
+              <div class="app-label" id="androidAppLabel">{{EXPO_NAME}}</div>
+            </div>
+            <div class="app-chip">
+              <div class="placeholder" style="background: linear-gradient(135deg, #16a34a, #4ade80);">IMG</div>
+              <div class="app-label">Gallery</div>
+            </div>
+            <div class="app-chip">
+              <div class="placeholder" style="background: linear-gradient(135deg, #9333ea, #c084fc);">AUD</div>
+              <div class="app-label">Music</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <h3 class="card-title">iOS Homescreen Context</h3>
+          <div class="hint">96x96 highlight ring in a mock homescreen grid</div>
+        </div>
+        <div class="screen ios-screen">
+          <div class="screen-grid">
+            <div class="app-chip">
+              <div class="placeholder ios-placeholder" style="background: linear-gradient(135deg, #0ea5e9, #67e8f9);">TEL</div>
+              <div class="app-label">Phone</div>
+            </div>
+            <div class="app-chip">
+              <div class="ios-placeholder ring" style="width: 96px; height: 96px; border-radius: 21px; overflow: hidden; background: #fff;">
+                <img src="/assets/ios-icon" alt="iOS homescreen icon" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              </div>
+              <div class="app-label" id="iosAppLabel">{{EXPO_NAME}}</div>
+            </div>
+            <div class="app-chip">
+              <div class="placeholder ios-placeholder" style="background: linear-gradient(135deg, #f59e0b, #fcd34d);">SET</div>
+              <div class="app-label">Settings</div>
+            </div>
+            <div class="app-chip">
+              <div class="placeholder ios-placeholder" style="background: linear-gradient(135deg, #dc2626, #fb7185);">HLT</div>
+              <div class="app-label">Health</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h3 class="card-title">Splash Screen Preview</h3>
+        <div class="hint">Light and dark frames with auto-inverted status bar text based on background luminance</div>
+      </div>
+      <div class="splash-pair">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="statusbar" id="statusbarLight">
+            <span>9:41</span>
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <!-- Signal icon -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 22h20V2z"/></svg>
+              <!-- WiFi icon -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21l-12-18c6.627-6 17.373-6 24 0z"/></svg>
+              <!-- Battery icon -->
+              <svg width="14" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm4 4v6h2V9h-2z"/></svg>
+            </div>
+          </div>
+          <div class="splash-surface" id="splashLightSurface">
+            <img class="splash-image" src="/assets/splash" alt="Light splash preview">
+            <div class="theme-chip light">Light Mode</div>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="statusbar" id="statusbarDark">
+            <span>9:41</span>
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <!-- Signal icon -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 22h20V2z"/></svg>
+              <!-- WiFi icon -->
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21l-12-18c6.627-6 17.373-6 24 0z"/></svg>
+              <!-- Battery icon -->
+              <svg width="14" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm4 4v6h2V9h-2z"/></svg>
+            </div>
+          </div>
+          <div class="splash-surface" id="splashDarkSurface">
+            <img class="splash-image" src="/assets/splash-dark" alt="Dark splash preview">
+            <div class="theme-chip dark">Dark Mode</div>
+          </div>
+        </div>
+      </div>
+      <div class="footnote" id="splashFootnote">Splash image width defaults to 38% of the frame width unless imageWidth is set in Expo config.</div>
+    </section>
+  </main>
+
+  <script>
+    let STATE = {};
+    const shapeMap = {
+      squircle: { className: 'mask-squircle', caption: 'Android 12+ default squircle mask' },
+      rounded: { className: 'mask-rounded', caption: 'Rounded rectangle mask' },
+      circle: { className: 'mask-circle', caption: 'Circle mask' },
+      square: { className: 'mask-square', caption: 'Square mask' }
+    };
+    const maskClasses = Object.values(shapeMap).map((entry) => entry.className);
+    const androidSizes = [
+      { px: 36, label: 'Status bar', dp: '24dp' },
+      { px: 54, label: 'Notification', dp: '36dp' },
+      { px: 72, label: 'Launcher', dp: '48dp' },
+      { px: 96, label: 'App drawer', dp: '64dp' }
+    ];
+    const iosSizes = [
+      { px: 40, label: 'Settings', pt: '29pt' },
+      { px: 57, label: 'Spotlight', pt: '40pt' },
+      { px: 86, label: 'Home Screen', pt: '60pt' },
+      { px: 128, label: 'App Store display', pt: '1024px source' }
+    ];
+
+    function isDarkColor(hex) {
+      const normalized = (hex || '#FFFFFF').replace('#', '');
+      const expanded = normalized.length === 3
+        ? normalized.split('').map((char) => char + char).join('')
+        : normalized;
+      const r = parseInt(expanded.slice(0, 2), 16);
+      const g = parseInt(expanded.slice(2, 4), 16);
+      const b = parseInt(expanded.slice(4, 6), 16);
+      return (0.299 * r + 0.587 * g + 0.114 * b) < 128;
+    }
+
+    function buildAndroidSizeRow() {
+      const container = document.getElementById('androidSizeRow');
+      container.innerHTML = '';
+      const bgColor = STATE.expo.adaptiveBackgroundColor;
+      androidSizes.forEach((item) => {
+        const mask = document.createElement('div');
+        mask.className = 'mini-mask mask-squircle';
+        mask.style.width = item.px + 'px';
+        mask.style.height = item.px + 'px';
+
+        const layerSize = item.px * (108 / 72);
+        const offset = (layerSize - item.px) / 2;
+
+        const bg = document.createElement('div');
+        bg.className = 'mini-bg';
+        bg.style.width = layerSize + 'px';
+        bg.style.height = layerSize + 'px';
+        bg.style.left = (-offset) + 'px';
+        bg.style.top = (-offset) + 'px';
+        bg.style.backgroundColor = bgColor;
+
+        const fg = document.createElement('div');
+        fg.className = 'mini-fg';
+        fg.style.width = layerSize + 'px';
+        fg.style.height = layerSize + 'px';
+        fg.style.left = (-offset) + 'px';
+        fg.style.top = (-offset) + 'px';
+        fg.style.backgroundImage = "url('/assets/icon')";
+
+        mask.appendChild(bg);
+        mask.appendChild(fg);
+
+        const itemNode = document.createElement('div');
+        itemNode.className = 'size-item';
+        itemNode.appendChild(mask);
+
+        const label = document.createElement('div');
+        label.className = 'size-label';
+        label.innerHTML = item.px + '&times;' + item.px + 'px<br>' + item.dp + ' ' + item.label;
+        itemNode.appendChild(label);
+
+        container.appendChild(itemNode);
+      });
+    }
+
+    function buildIosSizeRow() {
+      const container = document.getElementById('iosSizeRow');
+      container.innerHTML = '';
+      iosSizes.forEach((item) => {
+        const itemNode = document.createElement('div');
+        itemNode.className = 'size-item';
+
+        const mask = document.createElement('div');
+        mask.style.width = item.px + 'px';
+        mask.style.height = item.px + 'px';
+        mask.style.borderRadius = Math.round(item.px * 0.2237) + 'px';
+        mask.style.overflow = 'hidden';
+        mask.style.background = '#fff';
+        mask.style.boxShadow = '0 10px 20px rgba(0,0,0,0.35)';
+
+        const img = document.createElement('img');
+        img.src = '/assets/ios-icon';
+        img.alt = item.label;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.display = 'block';
+        mask.appendChild(img);
+
+        const label = document.createElement('div');
+        label.className = 'size-label';
+        label.innerHTML = item.px + '&times;' + item.px + 'px<br>' + item.pt;
+
+        itemNode.appendChild(mask);
+        itemNode.appendChild(label);
+        container.appendChild(itemNode);
+      });
+    }
+
+    function setShape(shape) {
+      const mapping = shapeMap[shape] || shapeMap.squircle;
+      const adaptiveMask = document.getElementById('adaptiveMask');
+      const launcherMask = document.getElementById('launcherMask');
+
+      [adaptiveMask, launcherMask].forEach((element) => {
+        maskClasses.forEach((className) => element.classList.remove(className));
+        element.classList.add(mapping.className);
+      });
+
+      document.getElementById('shapeCaption').textContent = mapping.caption;
+      document.querySelectorAll('#shapeControl button').forEach((button) => {
+        button.classList.toggle('active', button.dataset.shape === shape);
+      });
+    }
+
+    function applyState() {
+      const warnings = STATE.warnings || [];
+      const warningBanner = document.getElementById('warningBanner');
+      if (warnings.length) {
+        warningBanner.style.display = 'block';
+        warningBanner.innerHTML = warnings.map((warning) => '<div>' + warning + '</div>').join('');
+      }
+
+      document.getElementById('adaptiveBg').style.backgroundColor = STATE.expo.adaptiveBackgroundColor;
+      document.getElementById('launcherBg').style.backgroundColor = STATE.expo.adaptiveBackgroundColor;
+      document.getElementById('bgColorValue').textContent = STATE.expo.adaptiveBackgroundColor;
+
+      document.getElementById('adaptiveFg').style.backgroundImage = "url('/assets/icon')";
+      document.getElementById('launcherFg').style.backgroundImage = "url('/assets/icon')";
+
+      document.getElementById('splashLightSurface').style.backgroundColor = STATE.expo.splashBackgroundColor;
+      document.getElementById('splashDarkSurface').style.backgroundColor = STATE.expo.splashDarkBackgroundColor;
+      document.getElementById('statusbarLight').style.color = isDarkColor(STATE.expo.splashBackgroundColor) ? '#FFFFFF' : '#000000';
+      document.getElementById('statusbarDark').style.color = isDarkColor(STATE.expo.splashDarkBackgroundColor) ? '#FFFFFF' : '#000000';
+      if (STATE.expo.splashImageWidth) {
+        document.querySelectorAll('.splash-image').forEach((image) => {
+          image.style.width = Math.max(24, Math.min(70, (STATE.expo.splashImageWidth / 200) * 100)) + '%';
+        });
+        document.getElementById('splashFootnote').textContent = 'Splash image width reflects Expo imageWidth: ' + STATE.expo.splashImageWidth + 'px.';
+      }
+
+      buildAndroidSizeRow();
+      buildIosSizeRow();
+    }
+
+    document.getElementById('shapeControl').addEventListener('click', (event) => {
+      if (event.target.tagName === 'BUTTON') {
+        setShape(event.target.dataset.shape);
+      }
+    });
+
+    document.getElementById('safeZoneToggle').addEventListener('change', (event) => {
+      document.getElementById('safeZone').style.display = event.target.checked ? 'block' : 'none';
+    });
+
+    const adaptiveMask = document.getElementById('adaptiveMask');
+    adaptiveMask.addEventListener('mousemove', (event) => {
+      const rect = adaptiveMask.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const dx = ((x / rect.width) - 0.5) * 32;
+      const dy = ((y / rect.height) - 0.5) * 32;
+      document.getElementById('adaptiveFg').style.transform = 'translate3d(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px,0)';
+    });
+    adaptiveMask.addEventListener('mouseleave', () => {
+      document.getElementById('adaptiveFg').style.transform = 'translate3d(0,0,0)';
+    });
+
+    const launcherBg = document.getElementById('launcherBg');
+    const launcherFg = document.getElementById('launcherFg');
+    launcherBg.style.width = '144px';
+    launcherBg.style.height = '144px';
+    launcherBg.style.left = '-24px';
+    launcherBg.style.top = '-24px';
+    launcherFg.style.width = '144px';
+    launcherFg.style.height = '144px';
+    launcherFg.style.left = '-24px';
+    launcherFg.style.top = '-24px';
+
+    setShape('squircle');
+    applyState();
+
+    if (typeof EventSource !== 'undefined') {
+      const source = new EventSource('/events');
+      source.onmessage = function (event) {
+        if (event.data === 'reload') {
+          window.location.reload();
+        }
+      };
+    }
+  </script>
+</body>
+</html>

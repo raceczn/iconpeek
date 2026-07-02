@@ -16,6 +16,8 @@
   },
   "files": [
     "server.js",
+    "style.css",
+    "index.html",
     "generate_icons.py",
     "README.md",
     "LICENSE",
